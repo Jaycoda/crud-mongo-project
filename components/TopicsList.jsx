@@ -6,7 +6,9 @@ import { HiPencilAlt } from "react-icons/hi";
 const getTopics = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/topics", {
-      cache: "no-store",
+      next: {
+        revalidate: 0,
+      },
     });
 
     if (!res.ok) {
@@ -24,7 +26,10 @@ const TopicsList = async () => {
   return (
     <>
       {topics.map((topic) => (
-        <div className="p-4 border border-slate-600 my-3 flex justify-between gap-5">
+        <div
+          key={topic.id}
+          className="p-4 border border-slate-600 my-3 flex justify-between gap-5"
+        >
           <div>
             <h2 className="font-bold text-2xl">{topic.title}</h2>
             <div>{topic.description}</div>
